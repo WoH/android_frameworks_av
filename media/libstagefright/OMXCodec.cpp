@@ -22,6 +22,10 @@
 #include "include/AACEncoder.h"
 #include "include/MP3Decoder.h"
 
+#ifdef OLD_AVC_ENCODER
+#include "include/AVCEncoder.h"
+#endif
+
 #include "include/ESDS.h"
 
 #include <binder/IServiceManager.h>
@@ -104,6 +108,9 @@ static sp<MediaSource> Make##name(const sp<MediaSource> &source, const sp<MetaDa
 
 FACTORY_CREATE(MP3Decoder)
 FACTORY_CREATE_ENCODER(AACEncoder)
+#ifdef OLD_AVC_ENCODER
+FACTORY_CREATE_ENCODER(AVCEncoder)
+#endif
 
 static sp<MediaSource> InstantiateSoftwareEncoder(
         const char *name, const sp<MediaSource> &source,
@@ -115,6 +122,9 @@ static sp<MediaSource> InstantiateSoftwareEncoder(
 
     static const FactoryInfo kFactoryInfo[] = {
         FACTORY_REF(AACEncoder)
+#ifdef OLD_AVC_ENCODER
+        FACTORY_REF(AVCEncoder)
+#endif
     };
     for (size_t i = 0;
          i < sizeof(kFactoryInfo) / sizeof(kFactoryInfo[0]); ++i) {
