@@ -53,6 +53,9 @@ LOCAL_C_INCLUDES += \
 
 
 LOCAL_CFLAGS += -Wall -Wextra
+ifeq ($(BOARD_HTC_3D_SUPPORT),true)
+   LOCAL_CFLAGS += -DHTC_3D_SUPPORT
+endif
 
 LOCAL_MODULE:= libcameraservice
 
